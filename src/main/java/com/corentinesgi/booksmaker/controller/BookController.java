@@ -2,6 +2,7 @@ package com.corentinesgi.booksmaker.controller;
 
 import java.util.List;
 
+import org.apache.catalina.connector.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -26,8 +27,9 @@ public class BookController {
   }
 
   @GetMapping
-  public List<Book> getAll() {
-    return service.findAll();
+  public ResponseEntity<List<Book>> getAll() {
+    List<Book> results = service.findAll();
+    return ResponseEntity.status(HttpStatus.CREATED).body(results);
   }
 
   @PostMapping
@@ -37,8 +39,14 @@ public class BookController {
   }
 
   @PutMapping("{id}")
-  public Book update(@PathVariable Long id, @RequestBody Book book) {
-    return service.update(id, book);
+  public ResponseEntity<Book> update(@PathVariable Long id, @RequestBody Book book) {
+    Boolean bookExists = service.exists(id);
+
+    if (!bookExists) ResponseEntity.status(HttpStatus.NOT_FOUND);
+    if (id != book.getId()) ResponseEntity.status(HttpStatus.BAD_REQUEST);
+
+    Book result = service.update(id, book);
+    return ResponseEntity.status(HttpStatus.OK).body(result);
   }
 
   @DeleteMapping("{id}")
