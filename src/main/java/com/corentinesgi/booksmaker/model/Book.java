@@ -12,22 +12,22 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@Table(name = "BOOKS")
+@Table(name = "books")
 public class Book {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @Column(name = "TITLE", length = 128, nullable = false, unique = false)
+  @Column(name = "title", length = 128, nullable = false, unique = false)
   private String title;
 
-  @Column(name = "AUTHOR", length = 64, nullable = false, unique = false)
+  @Column(name = "author", length = 64, nullable = false, unique = false)
   private String author;
 
-  @Column(name = "PUBLISH_YEAR", length = 4, nullable = false, unique = false)
+  @Column(name = "publish_year", length = 4, nullable = false, unique = false)
   private String publishYear;
 
-  @Column(name = "CATEGORY", length = 64, nullable = false, unique = false)
+  @Column(name = "category", length = 64, nullable = false, unique = false)
   private String category;
 
   public Book() {}
