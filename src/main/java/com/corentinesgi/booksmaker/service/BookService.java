@@ -19,6 +19,10 @@ public class BookService {
     return repo.findAll();
   }
 
+  public Book find(Long id) {
+    return repo.getReferenceById(id);
+  }
+
   public Book create(Book book) {
     return repo.save(book);
   }
@@ -32,7 +36,7 @@ public class BookService {
     repo.deleteById(id);
   }
 
-  public Boolean exists(Long id) {
+  public boolean exists(Long id) {
     return repo.existsById(id);
   }
 }
